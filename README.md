@@ -6,7 +6,7 @@
 [![Paper](https://img.shields.io/badge/paper-BSPC-blue.svg)](https://www.journals.elsevier.com/biomedical-signal-processing-and-control)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://www.tensorflow.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 Official implementation of our systematic empirical study on the trade-off between **model capacity** and **cross-user generalization** in data-scarce electrooculography (EOG) eye-writing — an assistive communication paradigm for individuals with amyotrophic lateral sclerosis (ALS).
 
@@ -66,11 +66,11 @@ All experiments are organized **by evaluation protocol**, mirroring the paper's 
 │   ├── stroke recognition/
 │   │   ├── Conv1d_Mixed.ipynb
 │   │   ├── Conv1d_fast_Mixed.ipynb
-│   │   └── Conv1d_faster_Mixed.ipynb
-│   ├── Ablation(Distance)/
-│   │   ├── conv1d_DistanceAblation.ipynb
-│   │   ├── conv1d_fast_DistanceAblation.ipynb
-│   │   └── conv1d_faster_DistanceAblation.ipynb
+│   │   ├── Conv1d_faster_Mixed.ipynb
+│   │   └── Ablation(Distance)/
+│   │       ├── conv1d_DistanceAblation.ipynb
+│   │       ├── conv1d_fast_DistanceAblation.ipynb
+│   │       └── conv1d_faster_DistanceAblation.ipynb
 │   ├── Character(Decoder)/
 │   │   ├── Decoder_conv1d_Mixed.ipynb
 │   │   ├── Decoder_conv1d_fast_Mixed.ipynb
@@ -169,7 +169,9 @@ If you use this code or benchmark in your research, please cite:
   note    = {Under review}
 }
 ```
+## 📄 License
 
+This project is released under the [Apache License 2.0](LICENSE).
 ---
 
 ## 🙏 Acknowledgements
