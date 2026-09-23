@@ -106,10 +106,10 @@ All experiments are organized **by evaluation protocol**, mirroring the paper's 
 
 | Notebook group | Reproduces |
 |---|---|
-| `*/stroke recognition/Conv1d*_*.ipynb` | Per-branch & fused stroke metrics, normalized confusion matrices, per-class Precision/Recall/F1; saves stroke-level conditional probabilities (Eq. 1) |
-| `*/Character(Decoder)/Decoder_*.ipynb` | Character accuracy per stroke-length (1–4 strokes) and Overall; implements the structure-constrained decoder (Eqs. 2–4) |
+| `*/stroke recognition/Conv1d*_*.ipynb` | Per-branch & fused stroke metrics, normalized confusion matrices, per-class Precision/Recall/F1 |
+| `*/Character(Decoder)/Decoder_*.ipynb` | stroke-level conditional probabilities (Eq. 1), Character accuracy per stroke-length (1–4 strokes) and Overall; implements the structure-constrained decoder (Eqs. 2–4) |
 | `Subject_Mixed/CI/CI_Mixed.ipynb` | 95 % confidence intervals across 5 folds |
-| `Subject_Mixed/Ablation(Distance)/*.ipynb` | Difference-channel ablation (with/without `x_h − x_v`) |
+| `Subject_Mixed/Ablation(Distance)/*.ipynb` | Difference-channel ablation (without `x_h − x_v`) |
 | `User Dependent/Wilcoxon/Wilcoxon_UD.ipynb` | Wilcoxon signed-rank tests across 6 subjects |
 | `LOSO/Wilcoxon/Wilcoxon_LOSO.ipynb` | Wilcoxon signed-rank tests across 6 LOSO folds |
 | `complexity_analysis.ipynb` | Params / model size / FLOPs / inference time profiling |
@@ -124,7 +124,7 @@ We use the **public EOG eye-writing benchmark** introduced by Fang & Shinozaki (
 - 2 channels (horizontal, vertical), 1.0 kHz, 1250 samples (1.25 s) per stroke
 - Original ethics approval: Tokyo Institute of Technology, No. 2014083
 
-> The dataset is **not redistributed** here. Download it from the original publication's Supporting Information and place it in a `data/` folder at the repository root, then set `DATA_DIR` in the first cell of each notebook.
+> The dataset is **not redistributed** here. Download it from the original publication's Supporting Information.
 
 ---
 
@@ -138,21 +138,20 @@ pip install jupyter tensorflow>=2.20 numpy pandas scipy scikit-learn matplotlib 
 ### 2. Execution order (per protocol)
 The notebooks have a strict dependency chain — run them in this order:
 
-1. **Stroke recognition** — train the three branches + fusion classifier over all folds; exports confusion counts and stroke-level conditional probabilities.
+1. **Stroke recognition** — train the three branches + fusion classifier over all folds; exports confusion counts.
    ```bash
    jupyter nbconvert --to notebook --execute "LOSO/stroke recognition/Conv1d_fast_LOSO.ipynb" --output Conv1d_fast_LOSO_out.ipynb
    ```
-2. **Character (Decoder)** — loads the exported confusion probabilities + the valid Katakana stroke lookup table; computes character-level accuracy.
+2. **Character (Decoder)** — confusion probabilities + the valid Katakana stroke lookup table; computes character-level accuracy.
 3. **Statistics** — `CI_Mixed.ipynb` (Subject-Mixed) or `Wilcoxon_UD/LOSO.ipynb` (per-subject / per-fold tests).
 4. **Ablation** (Subject-Mixed only) — `Ablation(Distance)/` notebooks.
 5. **Complexity** — `complexity_analysis.ipynb` can be run at any time.
 
-### 3. Hyperparameters & seeds
+### 3. Hyperparameters 
 - Subject-Mixed / LOSO: 600 epochs, batch size 32 · User-Dependent: 450 epochs, batch size 16 (set in each notebook's config cell).
-- Random seeds are fixed inside the notebooks for full reproducibility.
 - No synthetic data augmentation is used anywhere; all results reflect the original, unaltered data distribution.
 
-> 💡 Folder names contain spaces/parentheses for readability. If you prefer CLI-friendly paths, you may rename them (e.g., `user_dependent/`, `character_decoder/`) — no internal path depends on these names except `DATA_DIR`.
+> 💡 Folder names contain spaces/parentheses for readability. If you prefer CLI-friendly paths, you may rename them.
 
 ---
 
@@ -177,7 +176,6 @@ This project is released under the [Apache License 2.0](LICENSE).
 ## 🙏 Acknowledgements
 
 - We thank **F. Fang and T. Shinozaki** for publicly releasing the EOG eye-writing dataset that made this study possible.
-- Katakana stroke-order diagrams in this repository were **redrawn by the authors**.
 
 ---
 
